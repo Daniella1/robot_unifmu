@@ -1,0 +1,7 @@
+pip install grpcio
+pip install scipy
+pip install --upgrade google-api-python-client
+
+
+# for visualization
+pip3 install roboticstoolbox-python
