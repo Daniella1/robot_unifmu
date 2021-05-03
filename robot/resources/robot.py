@@ -9,8 +9,8 @@ import spatialmath as sm
 
 
 def plotting_func(queue, ok_queue): 
-    #sys.stderr = None
-    #sys.stdout = None
+    sys.stderr = None
+    sys.stdout = None
 
     # Make and instance of the Swift simulator and open it
     from roboticstoolbox.backends.Swift import Swift
@@ -20,11 +20,12 @@ def plotting_func(queue, ok_queue):
     # Make a robot model and set its joint angles to the ready joint configuration
     robot = rtb.models.UR5()
     robot.q = robot.qr
-    robot.base = sm.SE3(0, 0, 0.8)# * sm.SE3.Rz(np.pi / 2)
+    robot.base = sm.SE3(0, 0, 0.8)
 
     # Add the robot to the simulator
     env.add(robot)
     #ok_queue.put(None)
+
 
     while True:
         q_or_end = queue.get()
@@ -116,8 +117,6 @@ class Robot(Fmi2FMU):
         t_start = current_time
         t_end = current_time + step_size
         t_span = (t_start, t_end)
-
-    
         def f(t,y):        
             theta, omega, i = y
 
@@ -129,8 +128,6 @@ class Robot(Fmi2FMU):
             return dtheta, domega, di
 
         res = solve_ivp(f, t_span, y0, t_eval=t_span, max_step=step_size/10.0)
-
-
         self.theta, self.omega, self.i = res.y[:,-1]
 
 
@@ -143,7 +140,8 @@ class Robot(Fmi2FMU):
             self.queue.put(([0, -self.theta, 0, 0, 0, 0], step_size))
         
         return Fmi2Status.ok
-        
+
+
 
 if __name__ == "__main__":
 

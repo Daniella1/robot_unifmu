@@ -1,0 +1,12 @@
+pip install grpcio-tools
+pip install scipy
+pip install matplotlib==3.2
+pip install roboticstoolbox-python==0.7.0
+
+
+
+
+
+# An attribute error may occur, if the version of matplotlib is incompatible.
+# It is tested with the listed version (3.2) and should work with this.
+# The error is illustrated in "attributeerror_has_no_module_sip.png"
