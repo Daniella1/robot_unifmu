@@ -26,6 +26,10 @@
     <ScalarVariable name="i" valueReference="3" variability="continuous" causality="input">
       <Real start="0.0" />
     </ScalarVariable>
+    <!--Index of variable = "5"-->
+    <ScalarVariable name="setpoint" valueReference="4" variability="fixed" causality="parameter">
+      <Real start="0.0"/>
+    </ScalarVariable>
   </ModelVariables>
   <ModelStructure>
     <Outputs>

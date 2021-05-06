@@ -1,4 +1,4 @@
 $param1 = $args
 
-& conda activate py_sandbox
+& conda activate empty_env
 & python backend_grpc.py $param1

@@ -5,7 +5,6 @@ import logging
 
 # from command_server import CommandServicer
 from robot import Robot
-
 from concurrent import futures
 import grpc
 
