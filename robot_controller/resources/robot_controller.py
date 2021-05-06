@@ -45,22 +45,13 @@ class RobotController(Fmi2FMU):
         self.Kd = 0.1
         self.Ki = 0.0
     
-
-    def pd_controller(self, measured_value, dt):
-        error = self.setpoint - measured_value
-        P = error
-        self.I = self.I + error * dt
-        D = (error - self.previous_error)/dt
-        output = self.Kp * P + self.Ki * self.I +  self.Kd * D 
-        self.previous_error = error
-        return output
-
-    def _update_outputs(self, step_size):
-        self.u = self.pd_controller(self.theta, step_size)
-
     def do_step(self, current_time, step_size, no_step_prior):
         
-        self._update_outputs(step_size)
+        error = self.setpoint - self.theta
+        self.I = self.I + error * step_size
+        D = (error - self.previous_error)/step_size
+        self.u = self.Kp * error + self.Ki * self.I +  self.Kd * D 
+        self.previous_error = error
 
         return Fmi2Status.ok
         
