@@ -30,6 +30,14 @@
     <ScalarVariable name="setpoint" valueReference="4" variability="fixed" causality="parameter">
       <Real start="0.0"/>
     </ScalarVariable>
+    <!--Index of variable = "6"-->
+    <ScalarVariable name="Kp" valueReference="5" variability="fixed" causality="parameter">
+      <Real start="1.0"/>
+    </ScalarVariable>
+    <!--Index of variable = "7"-->
+    <ScalarVariable name="Kd" valueReference="6" variability="fixed" causality="parameter">
+      <Real start="0.1"/>
+    </ScalarVariable>
   </ModelVariables>
   <ModelStructure>
     <Outputs>

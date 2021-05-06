@@ -47,7 +47,6 @@ class RobotController(Fmi2FMU):
         P = error
         D = (error - self.previous_error)/dt
         output = self.Kp * P + self.Kd * D 
-        print(output)
         self.previous_error = error
         return output
 
