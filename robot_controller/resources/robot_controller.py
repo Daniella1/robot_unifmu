@@ -14,6 +14,8 @@ class RobotController(Fmi2FMU):
         self.setpoint = 0.0
         self.Kp = 0.0
         self.Kd = 0.0
+        self.Ki = 0.0
+        self.I = 0.0
 
 
     def __repr__(self):
@@ -38,15 +40,18 @@ class RobotController(Fmi2FMU):
     
     def enter_initialization_mode(self) -> int:
         self.u = 0.0
+        self.I = 0.0
         self.Kp = 1
         self.Kd = 0.1
+        self.Ki = 0.0
     
 
     def pd_controller(self, measured_value, dt):
         error = self.setpoint - measured_value
         P = error
+        self.I = self.I + error * dt
         D = (error - self.previous_error)/dt
-        output = self.Kp * P + self.Kd * D 
+        output = self.Kp * P + self.Ki * self.I +  self.Kd * D 
         self.previous_error = error
         return output
 
