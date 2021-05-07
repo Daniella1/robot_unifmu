@@ -58,11 +58,9 @@ class Robot(Fmi2FMU):
         self.b = 5.0 # Motor shaft friction
         self.K = 7.45 # torque coefficient
         self.R = 0.15 # Resistance
-        self.L = 0.036 # Inductance
+        self.L = 0.036 #0.036 # Inductance
         self.V_abs = 12.0 # Motor voltage
         self.J = self.m * self.l**2 # Motor shaft and arm inertia
-        self.pwm_frequency = 1000.0
-        self.duty_cycle = 0.0
 
         self.k1 = self.m*self.g*self.l
 
@@ -146,19 +144,27 @@ class Robot(Fmi2FMU):
 
 
 
-#if __name__ == "__main__":
+if __name__ == "__main__":
 
-    # r = Robot()
-    # r.u = 0.0
-    # r.use_visualization = True
-    # r.enter_initialization_mode()
+    r = Robot()
+    r.u = 0.0
+    r.use_visualization = True
+    r.enter_initialization_mode()
     
-    # step_size = 0.1
-    # t_eval = np.arange(0.0, 10.0 + step_size, step_size)
-    # results = [[r.theta,r.omega]]
-    # for cur_time in t_eval[:-1]:
-    #     r.do_step(cur_time, step_size, True)
-    #     results.append([r.theta, r.omega])
+    step_size = 0.001
+    t_eval = np.arange(0.0, 10.0 + step_size, step_size)
+    results = [[r.theta,r.omega]]
+    for cur_time in t_eval[:-1]:
+        r.do_step(cur_time, step_size, True)
+        results.append([r.theta, r.omega])
 
-    #results = np.array(results)
-    # r.terminate()
+    results = np.array(results)
+    r.terminate()
+
+    plt.plot(t_eval, results[:,0], label=r'$\theta(t)$')
+    plt.plot(t_eval, results[:,1], label=r'$\omega(t)$')
+    plt.xlabel("t [s]")
+    plt.ylabel("[rad]")
+    plt.title("Robot")
+    plt.legend()
+    plt.show()

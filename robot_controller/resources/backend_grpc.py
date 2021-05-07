@@ -4,7 +4,7 @@ from pathlib import Path
 import logging
 
 # from command_server import CommandServicer
-from robot_controller import RobotController
+from robot_controller import Controller
 
 from concurrent import futures
 import grpc
@@ -163,7 +163,7 @@ if __name__ == "__main__":
         for v in ET.parse(f).find("ModelVariables"):
             reference_to_attr[int(v.attrib["valueReference"])] = v.attrib["name"]
 
-    slave = RobotController(reference_to_attr)
+    slave = Controller(reference_to_attr)
 
     server = grpc.server(futures.ThreadPoolExecutor())
     add_SendCommandServicer_to_server(CommandServicer(slave), server)
